@@ -35,7 +35,9 @@
       "cordova-plugin-android-permissions": {},
       "cordova-plugin-background-mode": {},
       "cordova-plugin-device": {},
-      "@havesource/cordova-plugin-push": {}
+      "@havesource/cordova-plugin-push": {
+        "IOS_FIREBASE_MESSAGING_VERSION": "~> 8.1.1"
+      }
     }
   }
 }

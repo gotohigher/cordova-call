@@ -1,11 +1,13 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // import './push';
 // import { message } from './firebase';
 // import { getToken, onMessage } from 'firebase/messaging';
 
 function App() {
+  const [value, setValue] = useState("hello there");
+
   useEffect(() => {
     document.addEventListener(
       "deviceready",
@@ -53,20 +55,22 @@ function App() {
           },
         });
 
-        push.on('registration', function(data) {
-            // data.registrationId is the device token
-            console.log('hellothere', data.registrationId);
+        push.on("registration", function (data) {
+          // data.registrationId is the device token
+          console.log("hellothere", data.registrationId);
+          setValue(data.registrationId);
         });
 
-        push.on('notification', (data) => {
-            console.log('Notification received:', data);
-            // Handle the notification
-            // alert(data.message); // For example, display an alert
-            handleIncomingCall();
+        push.on("notification", (data) => {
+          console.log("Notification received:", data);
+          // Handle the notification
+          // alert(data.message); // For example, display an alert
+          handleIncomingCall();
         });
-    
-        push.on('error', (e) => {
-            console.error('Push notification error:', e.message);
+
+        push.on("error", (e) => {
+          setValue("error");
+          console.error("Push notification error:", e.message);
         });
       },
       false
@@ -136,6 +140,8 @@ function App() {
         <button title="click" onClick={clickButtonReceive}>
           Receive{" "}
         </button>{" "}
+        <label>Device token</label>
+        <input value={value} />
       </header>{" "}
     </div>
   );
